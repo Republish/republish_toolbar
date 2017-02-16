@@ -1,0 +1,7 @@
+editbar.default:
+  version: "v1.0"
+  css:
+    component:
+      css/editbar.css: {}
+    theme:
+      css/editbar.light.css: {}

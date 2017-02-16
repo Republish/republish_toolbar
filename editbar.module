@@ -1,0 +1,75 @@
+<?php
+use Drupal\Core\Menu\MenuTreeParameters;
+
+/**
+ * Implements hook_theme().
+ */
+function editbar_theme($existing, $type, $theme, $path)
+{
+    return [
+        'editbar' => [
+            'variables' => [
+                'attributes' => [],
+                'links' => [],
+            ],
+        ]
+    ];
+}
+
+/**
+ * Implements hook_page_top().
+ */
+function editbar_page_top(array &$page_top)
+{
+    $page_top['toolbar'] = array(
+        '#theme' => 'editbar',
+        '#links' => editbar_get_links(),
+        '#access' => \Drupal::currentUser()->hasPermission('access editbar'),
+        /*
+        '#cache' => [
+            'keys' => ['editbar'],
+            'contexts' => ['user.permissions'],
+        ],
+        */
+        '#attached' => [
+            'library' => [
+                'editbar/editbar.default',
+            ],
+        ],
+    );
+}
+
+function editbar_get_links()
+{
+    $menu_tree = \Drupal::menuTree();
+    $menu_name = 'admin';
+
+    // Build the typical default set of menu tree parameters.
+    $parameters = new MenuTreeParameters();
+    $parameters->setMinDepth(2)->setMaxDepth(2);
+
+    // Load the tree based on this set of parameters.
+    $tree = $menu_tree->load($menu_name, $parameters);
+
+    // Transform the tree using the manipulators you want.
+    $manipulators = array(
+        // Only show links that are accessible for the current user.
+        array('callable' => 'menu.default_tree_manipulators:checkAccess'),
+        // Use the default sorting of menu links.
+        array('callable' => 'menu.default_tree_manipulators:generateIndexAndSort'),
+    );
+    $tree = $menu_tree->transform($tree, $manipulators);
+
+    // Finally, build a renderable array from the transformed tree.
+    $menu = $menu_tree->build($tree);
+
+    return $menu;
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function editbar_preprocess_menu__admin(&$variables, $hook)
+{
+    $variables['attributes']['class'][] = 'nav';
+}

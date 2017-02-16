@@ -1,0 +1,57 @@
+.editbar {
+    z-index: 666;
+    width: 100%;
+    padding-top: 15px;
+    position: sticky;
+}
+
+.editbar > .inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.editbar .logo {
+    color: #333333;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.editbar .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+}
+
+.editbar .bottom {
+}
+
+.editbar .nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.editbar .nav > li {
+    display: inline-block;
+    padding: 10px 20px 18px 0;
+}
+
+.editbar .nav > li > a {
+    font-size: 14px;
+    text-decoration: none;
+    border: none;
+    color: rgba(0, 0, 0, .44) !important;
+}
+
+.editbar .nav > li > a:hover {
+    color: rgba(0, 0, 0, .6) !important;
+}

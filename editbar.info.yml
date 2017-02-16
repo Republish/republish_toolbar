@@ -1,0 +1,5 @@
+name: editbar
+type: module
+description: "A toolbar build for editors, not developers."
+core: 8.x
+package: sqndr
